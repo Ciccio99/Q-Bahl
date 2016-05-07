@@ -64,7 +64,6 @@ public class PlayerRangedForm : PlayerTransform {
 			Vector3 laserDir = (playerAim.mouse_pos - transform.position).normalized;
 			laserBeamClone = (GameObject) Instantiate (laserBeamObject, playerArm.position, Quaternion.identity);
 			laserBeamClone.transform.localRotation = Quaternion.Euler ( -1 * playerAim.turn_angle, 90, 0);
-			transform.FindChild("LazerFireLoc").GetComponent<Rigidbody> ().AddForce (laserDir * -500f);
 			isCooling2 = true;
 			Invoke ("resetCooling2", 5);
 		}
