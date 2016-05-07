@@ -66,7 +66,7 @@ public class MasterHandScript : MonoBehaviour {
 			laserClosePlayer ();
 			break;
 		case BossState.RESET_TO_PLAYER:
-			transform.LookAt (player.transform.position);
+			//transform.LookAt (player.transform.position);
 			resetToPlayer ();
 			break;
 		case BossState.LASERS:
@@ -97,13 +97,14 @@ public class MasterHandScript : MonoBehaviour {
 
 	void idling () {
 		if (!IsInvoking ("selectMove")) {
-			randTime = Random.Range (2f, 5f);
+			randTime = Random.Range (2f, 4f);
 			Invoke ("selectMove", randTime);
 		}
 	}
 
 	void selectMove () {
 		randMoveSelect = (int) Random.Range (0, 2);
+		Debug.Log (randMoveSelect);
 		switch (randMoveSelect) {
 		case 0:
 			setSmashSearchState ();
@@ -229,13 +230,12 @@ public class MasterHandScript : MonoBehaviour {
 		}
 
 		if (swipeStartPosition == Vector3.zero) {
-			Debug.Log (randMult);
 			randDist = Random.Range(20f, 25f);
 			swipeStartPosition = new Vector3 (playerPos.x + (randDist * moveMult), playerPos.y + 3f, playerPos.z);
 		}
 
 		randDist = Random.Range(10f, 15f);
-		swipeTargetPosition = new Vector3(playerPos.x - (randDist * moveMult), playerPos.y + 3f, playerPos.z);
+		swipeTargetPosition = new Vector3(playerPos.x - (randDist * moveMult), swipeStartPosition.y, playerPos.z);
 
 		transform.position = Vector3.Lerp(transform.position, swipeStartPosition, Time.deltaTime * smashSearchMoveSpeed);
 		if (!IsInvoking ("setSwipeState")) {
